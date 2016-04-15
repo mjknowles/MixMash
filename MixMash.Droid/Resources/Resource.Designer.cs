@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("MixMash.Android.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("MixMash.Droid.Resource", IsApplication=true)]
 
-namespace MixMash.Android
+namespace MixMash.Droid
 {
 	
 	
@@ -26,6 +26,8 @@ namespace MixMash.Android
 		
 		public static void UpdateIdValues()
 		{
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::MixMash.Droid.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::MixMash.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

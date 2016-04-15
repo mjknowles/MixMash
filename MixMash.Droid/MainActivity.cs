@@ -6,7 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace MixMash.Android
+namespace MixMash.Droid
 {
     [Activity(Label = "MixMash.Android", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
