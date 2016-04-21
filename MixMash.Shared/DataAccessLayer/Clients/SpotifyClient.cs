@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MixMash.Shared.BL.Entities;
+using MixMash.Shared.BL.Contracts;
 using MixMash.Shared.DAL.DTOs;
 using Newtonsoft.Json;
 using System;
@@ -12,13 +13,35 @@ using System.Threading.Tasks;
 
 namespace MixMash.Shared.DAL.Clients
 {
-    public class SpotifyClient
+    public class SpotifyClient : ISpotifyClient
     {
         private IMapper _mapper;
 
         public SpotifyClient(IMapper mapper)
         {
             _mapper = mapper;
+        }
+
+        public async Task<IList<string>> GetGenres()
+        {
+            return new List<string>
+            {
+                "alt_rock",
+                "bluegrass",
+                "blues",
+                "classical",
+                "country",
+                "dance",
+                "electronic",
+                "happy",
+                "indie-pop",
+                "new-release",
+                "party",
+                "pop",
+                "salsa",
+                "techno",
+                "work-out"
+            };
         }
 
         public async Task<List<Track>> GetRecommendedTracks()

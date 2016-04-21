@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace MixMash.Droid
 {
-    [Activity(Label = "MixMash.Android", MainLauncher = true, Icon = "@drawable/icon")]
+    /*[Activity(Label = "MixMash.Droid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         int count = 1;
@@ -26,6 +26,6 @@ namespace MixMash.Droid
 
             button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
         }
-    }
+    }*/
 }
 

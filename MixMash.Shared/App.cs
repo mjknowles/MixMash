@@ -1,3 +1,7 @@
+using AutoMapper;
+using MixMash.Shared.BL;
+using MixMash.Shared.BL.ViewModels;
+using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
 
 namespace MixMash.Shared
@@ -6,12 +10,14 @@ namespace MixMash.Shared
     {
         public override void Initialize()
         {
+            Mvx.RegisterSingleton<IMapper>(Bootstrapper.AutoMapper());
             CreatableTypes()
-                .EndingWith("Service")
+                .EndingWith("Client")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<ViewModels.FirstViewModel>();
+            //RegisterAppStart<ViewModels.FirstViewModel>();
+            RegisterAppStart<SeedSelectorViewModel>();
         }
     }
 }
