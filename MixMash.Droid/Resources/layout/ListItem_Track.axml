@@ -3,16 +3,15 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    local:MvxBind="Click ItemSelectedCommand">
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        local:MvxBind="Checked Selected" />
+    android:layout_height="fill_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         local:MvxBind="Text Name" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        local:MvxBind="Text Artist" />
 </LinearLayout>

@@ -100,9 +100,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="Views\DefineSeedGenresView.cs" />
+    <Compile Include="Views\GenreSelectorView.cs" />
     <Compile Include="Views\FirstView.cs" />
     <Compile Include="Views\SeedSelectorView.cs" />
+    <Compile Include="Views\TracksView.cs" />
+    <Compile Include="Views\TuneableAttribsSelectorView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
@@ -112,10 +114,19 @@
     <AndroidResource Include="Resources\layout\SplashScreen.axml" />
     <AndroidResource Include="Resources\layout\FirstView.axml" />
     <AndroidResource Include="Resources\layout\SeedSelectorView.axml" />
-    <AndroidResource Include="Resources\layout\DefineSeedGenresView.axml">
+    <AndroidResource Include="Resources\layout\GenreSelectorView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ListItem_Genre.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TracksView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListItem_Track.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TuneableAttribsSelectorView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

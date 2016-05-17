@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MixMash.Shared.BL.Entities;
+using MixMash.Shared.BL.ViewModelParameters;
 using MixMash.Shared.DAL.Clients;
 using MixMash.Shared.DL.Clients;
 using MvvmCross.Core.ViewModels;
@@ -13,18 +14,28 @@ namespace MixMash.Shared.BL.ViewModels
 {
     public class TracksViewModel : MvxViewModel
     {
-        private readonly IMapper _mapper;
-        private readonly SQLiteClient _db;
+        //private readonly IMapper _mapper;
+        //private readonly SQLiteClient _db;
 
-        public List<Track> RecommendedTracks { get; set; }
+        private IList<TrackViewModel> _tracks;
+        public IList<TrackViewModel> Tracks
+        {
+            get { return _tracks; }
+            set { SetProperty(ref _tracks, value); }
+        }
 
-        public TracksViewModel(IMapper mapper, ISQLite sql)
+        /*public TracksViewModel(IMapper mapper, ISQLite sql)
         {
             _mapper = mapper;
             _db = new SQLiteClient(sql);
+        }*/
+
+        public void Init(TracksParameters trackParams)
+        {
+            Tracks = trackParams.Tracks;
         }
 
-        public async Task GetRecommendedTracks()
+        /*public async Task GetRecommendedTracks()
         {
             await GetLocalRecommendedTracks();
             await GetRemoteRecommendedTracks();
@@ -41,6 +52,6 @@ namespace MixMash.Shared.BL.ViewModels
             var remoteClient = new SpotifyClient(_mapper);
             var tracks = await remoteClient.GetRecommendedTracks().ConfigureAwait(false);
             await _db.SaveAll(tracks).ConfigureAwait(false);
-        }
+        }*/
     }
 }

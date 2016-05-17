@@ -4,22 +4,17 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Button
+    <Mvx.MvxListView
+        android:orientation="vertical"
+        android:scrollbars="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="40dp"
-        local:MvxBind="Text GenresButtonText;                                              Click GenreSelectedCommand" />
+        local:MvxBind="ItemsSource SeedGenres"
+        local:MvxItemTemplate="@layout/listitem_genre" />
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="40dp"
-        local:MvxBind="Text ArtistsButtonText" />
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="40dp"
-        local:MvxBind="Text SongsButtonText" />
+        android:textSize="16dp"
+        local:MvxBind="Text CreatePlaylistText;                                              Click CreatePlaylistCommand" />
 </LinearLayout>

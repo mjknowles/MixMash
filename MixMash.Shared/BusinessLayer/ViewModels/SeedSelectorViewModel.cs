@@ -38,7 +38,7 @@ namespace MixMash.Shared.BL.ViewModels
         {
             get
             {
-                return new MvxCommand(() => ShowViewModel<DefineSeedGenresViewModel>());
+                return new MvxCommand(() => ShowViewModel<GenreSelectorViewModel>());
             }
         }
     }

@@ -14,12 +14,12 @@ using MvvmCross.Droid.Views;
 namespace MixMash.Droid.Views
 {
     [Activity]
-    public class DefineSeedGenresView : MvxActivity
+    public class GenreSelectorView : MvxActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.DefineSeedGenresView);
+            SetContentView(Resource.Layout.GenreSelectorView);
         }
     }
 }
