@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MixMash.Shared.BL.Entities;
+using MixMash.Shared.BL.ValueObjects;
 using MixMash.Shared.BL.ViewModelParameters;
 using MixMash.Shared.DAL.Clients;
 using MixMash.Shared.DL.Clients;
@@ -14,7 +15,7 @@ namespace MixMash.Shared.BL.ViewModels
 {
     public class TracksViewModel : MvxViewModel
     {
-        //private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
         //private readonly SQLiteClient _db;
 
         private IList<TrackViewModel> _tracks;
@@ -24,34 +25,41 @@ namespace MixMash.Shared.BL.ViewModels
             set { SetProperty(ref _tracks, value); }
         }
 
-        /*public TracksViewModel(IMapper mapper, ISQLite sql)
+        public TracksViewModel(IMapper mapper)//, ISQLite sql)
         {
             _mapper = mapper;
-            _db = new SQLiteClient(sql);
-        }*/
+            //_db = new SQLiteClient(sql);
+        }
 
         public void Init(TracksParameters trackParams)
         {
-            Tracks = trackParams.Tracks;
+            var spotifyParams = new SpotifyRequestParams()
+            {
+                MinDanceability = trackParams.MinDanceability,
+                MaxDanceability = trackParams.MaxDanceability
+            };
+
+            GetRecommendedTracks();
         }
 
-        /*public async Task GetRecommendedTracks()
+        public async Task GetRecommendedTracks()
         {
-            await GetLocalRecommendedTracks();
+            //await GetLocalRecommendedTracks();
             await GetRemoteRecommendedTracks();
-            await GetLocalRecommendedTracks();
+            //await GetLocalRecommendedTracks();
         }
 
-        private async Task GetLocalRecommendedTracks()
+        /*private async Task GetLocalRecommendedTracks()
         {
-            RecommendedTracks = await _db.GetRecommendedTracksAsync();
-        }
+            Tracks = await _db.GetRecommendedTracksAsync();
+        }*/
 
         private async Task GetRemoteRecommendedTracks()
         {
             var remoteClient = new SpotifyClient(_mapper);
             var tracks = await remoteClient.GetRecommendedTracks().ConfigureAwait(false);
-            await _db.SaveAll(tracks).ConfigureAwait(false);
-        }*/
+            Tracks = _mapper.Map<IList<TrackViewModel>>(tracks);
+            //await _db.SaveAll(tracks).ConfigureAwait(false);
+        }
     }
 }

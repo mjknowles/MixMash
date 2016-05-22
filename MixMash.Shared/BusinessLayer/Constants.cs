@@ -5,11 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MixMash.Shared.BL.Constants
+namespace MixMash.Shared.BL
 {
     public static class Constants
     {
-        public static Dictionary<Genre, string> Genres = new Dictionary<Genre, string>
+        public static readonly string GenreSelectorNextStepText = "NEXT!";
+        public static readonly string TuneableAttribsNextStepText = "GENERATE!";
+        public static readonly float MinAttribValue = 0.0f;
+        public static readonly float MaxAttribValue = 1.0f;
+        public static readonly float OverallAttribValueFlex = .5f;
+        public static readonly float InitialOverallAttribValue = 0f;
+
+        public static readonly Dictionary<Genre, string> Genres = new Dictionary<Genre, string>
         {
             { Genre.AltRock, "alt_rock" },
             { Genre.Bluegrass, "bluegrass" },
@@ -25,7 +32,12 @@ namespace MixMash.Shared.BL.Constants
             { Genre.Pop, "pop" },
             { Genre.Salsa, "salsa" },
             { Genre.Techno, "techno" },
-            { Genre.WorkOut, "work-out" },
+            { Genre.WorkOut, "work-out" }
+        };
+
+        public static readonly Dictionary<TuneableAttrib, string> TuneableAttribs = new Dictionary<TuneableAttrib, string>
+        {
+            { TuneableAttrib.Danceability, "DANCE" }
         };
     }
 }

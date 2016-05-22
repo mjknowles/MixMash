@@ -42,6 +42,7 @@
     <Compile Include="BusinessLayer\Constants.cs" />
     <Compile Include="BusinessLayer\Contracts\IAggregateRoot.cs" />
     <Compile Include="BusinessLayer\Contracts\ISpotifyClient.cs" />
+    <Compile Include="BusinessLayer\Converters\AttribValueNormalizerConverter.cs" />
     <Compile Include="BusinessLayer\Entities\BusinessEntityBase.cs" />
     <Compile Include="BusinessLayer\Contracts\IBusinessEntity.cs" />
     <Compile Include="BusinessLayer\Entities\Friend.cs" />
@@ -52,7 +53,6 @@
     <Compile Include="BusinessLayer\ValueObjects\SpotifyGenre.cs" />
     <Compile Include="BusinessLayer\ValueObjects\SpotifyRequestParams.cs" />
     <Compile Include="BusinessLayer\ViewModelParameters\TracksParameters.cs" />
-    <Compile Include="BusinessLayer\ViewModelParameters\TuneableAttribsParams.cs" />
     <Compile Include="BusinessLayer\ViewModels\GenreSelectorViewModel.cs" />
     <Compile Include="BusinessLayer\ViewModels\SeedSelectorViewModel.cs" />
     <Compile Include="BusinessLayer\ViewModels\TracksViewModel.cs" />

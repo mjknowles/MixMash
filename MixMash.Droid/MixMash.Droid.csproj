@@ -117,7 +117,7 @@
     <AndroidResource Include="Resources\layout\GenreSelectorView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ListItem_Genre.axml">
+    <AndroidResource Include="Resources\layout\GenreSelector_ListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TracksView.axml">
@@ -127,6 +127,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TuneableAttribsSelectorView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TuneableAttrib_ListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

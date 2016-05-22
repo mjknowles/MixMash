@@ -24,4 +24,9 @@ namespace MixMash.Shared.BL.Enums
         Techno,
         WorkOut
     }
+
+    public enum TuneableAttrib
+    {
+        Danceability
+    }
 }

@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         local:MvxBind="ItemsSource SeedGenres"
-        local:MvxItemTemplate="@layout/listitem_genre" />
+        local:MvxItemTemplate="@layout/genreselector_listitem" />
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16dp"
-        local:MvxBind="Text CreatePlaylistText;                                              Click CreatePlaylistCommand" />
+        local:MvxBind="Text NextStepText; Click NextStepCommand" />
 </LinearLayout>

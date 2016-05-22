@@ -136,10 +136,10 @@ namespace MixMash.Droid
 			public const int FirstView = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int GenreSelectorView = 2130968577;
+			public const int GenreSelector_ListItem = 2130968577;
 			
 			// aapt resource value: 0x7f040002
-			public const int ListItem_Genre = 2130968578;
+			public const int GenreSelectorView = 2130968578;
 			
 			// aapt resource value: 0x7f040003
 			public const int ListItem_Track = 2130968579;
@@ -157,7 +157,10 @@ namespace MixMash.Droid
 			public const int TracksView = 2130968583;
 			
 			// aapt resource value: 0x7f040008
-			public const int TuneableAttribsSelectorView = 2130968584;
+			public const int TuneableAttrib_ListItem = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int TuneableAttribsSelectorView = 2130968585;
 			
 			static Layout()
 			{

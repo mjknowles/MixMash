@@ -18,7 +18,7 @@ namespace MixMash.Shared.BL.ViewModels
             _spotifyClient = spotifyClient;
             var genres = _spotifyClient.GetGenres().Result;
             SeedGenres = genres.Select(g => new Genre_ListItem(g)).ToList();
-            CreatePlaylistText = "Get Playlist!";
+            NextStepText = Constants.GenreSelectorNextStepText;
         }
 
         private IList<Genre_ListItem> _seedGenres;
@@ -29,18 +29,18 @@ namespace MixMash.Shared.BL.ViewModels
         }
 
 
-        private string _createPlaylistText;
-        public string CreatePlaylistText
+        private string _nextStepText;
+        public string NextStepText
         {
-            get { return _createPlaylistText; }
-            private set { SetProperty(ref _createPlaylistText, value); }
+            get { return _nextStepText; }
+            private set { SetProperty(ref _nextStepText, value); }
         }
 
-        public ICommand CreatePlaylistCommand
+        public ICommand NextStepCommand
         { 
             get
             {
-                return new MvxCommand(() => ShowViewModel<TuneableAttribsSelectorViewModel>(new TuneableAttribsParams()));
+                return new MvxCommand(() => ShowViewModel<TuneableAttribsSelectorViewModel>());
             }
         }
     }
