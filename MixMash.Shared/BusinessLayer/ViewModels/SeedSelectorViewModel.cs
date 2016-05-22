@@ -1,4 +1,5 @@
-﻿using MvvmCross.Core.ViewModels;
+﻿using MixMash.Shared.BL.Authentication;
+using MvvmCross.Core.ViewModels;
 using System.Windows.Input;
 
 namespace MixMash.Shared.BL.ViewModels
@@ -6,11 +7,13 @@ namespace MixMash.Shared.BL.ViewModels
     public class SeedSelectorViewModel
         : MvxViewModel
     {
-        public SeedSelectorViewModel()
+        public SeedSelectorViewModel(IAuthService authService, AuthenticationParams authenticationParams)
         {
             GenresButtonText = "Genres";
             ArtistsButtonText = "Artists";
             SongsButtonText = "Songs";
+
+            authService.Login(authenticationParams);
         }
 
         private string _genresButtonText;

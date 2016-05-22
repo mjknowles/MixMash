@@ -17,7 +17,7 @@ namespace MixMash.Shared
                 .RegisterAsLazySingleton();
 
             //RegisterAppStart<ViewModels.FirstViewModel>();
-            RegisterAppStart<SeedSelectorViewModel>();
+            RegisterAppStart<AuthenticationViewModel>();
         }
     }
 }
