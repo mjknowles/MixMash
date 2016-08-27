@@ -8,6 +8,6 @@ namespace MixMash.Shared.BL.Authentication
 {
     public interface IAuthService
     {
-        void Login(AuthenticationParams authParams);
+        void Login();
     }
 }

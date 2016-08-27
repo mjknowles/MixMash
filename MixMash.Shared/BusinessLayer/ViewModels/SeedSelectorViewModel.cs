@@ -7,13 +7,14 @@ namespace MixMash.Shared.BL.ViewModels
     public class SeedSelectorViewModel
         : MvxViewModel
     {
-        public SeedSelectorViewModel(IAuthService authService, AuthenticationParams authenticationParams)
+
+        private readonly IAuthService _authService;
+
+        public SeedSelectorViewModel()
         {
             GenresButtonText = "Genres";
             ArtistsButtonText = "Artists";
             SongsButtonText = "Songs";
-
-            authService.Login(authenticationParams);
         }
 
         private string _genresButtonText;

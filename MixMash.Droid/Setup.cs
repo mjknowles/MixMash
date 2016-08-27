@@ -2,6 +2,8 @@ using Android.Content;
 using MvvmCross.Droid.Platform;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.Platform;
+using MvvmCross.Platform;
+using MixMash.Shared.BL.Authentication;
 
 namespace MixMash.Droid
 {
@@ -14,6 +16,11 @@ namespace MixMash.Droid
         protected override IMvxApplication CreateApp()
         {
             return new Shared.App();
+        }
+
+        protected override void InitializeFirstChance()
+        {
+            base.InitializeFirstChance();
         }
 
         protected override IMvxTrace CreateDebugTrace()
