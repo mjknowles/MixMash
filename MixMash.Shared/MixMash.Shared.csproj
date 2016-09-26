@@ -53,8 +53,10 @@
     <Compile Include="BusinessLayer\Entities\Track.cs" />
     <Compile Include="BusinessLayer\Entities\User.cs" />
     <Compile Include="BusinessLayer\Enums.cs" />
+    <Compile Include="BusinessLayer\ValueObjects\SpotifyAccessToken.cs" />
     <Compile Include="BusinessLayer\ValueObjects\SpotifyGenre.cs" />
     <Compile Include="BusinessLayer\ValueObjects\SpotifyRequestParams.cs" />
+    <Compile Include="BusinessLayer\ViewModelParameters\GenresParameters.cs" />
     <Compile Include="BusinessLayer\ViewModelParameters\TracksParameters.cs" />
     <Compile Include="BusinessLayer\ViewModels\GenreSelectorViewModel.cs" />
     <Compile Include="BusinessLayer\ViewModels\SeedSelectorViewModel.cs" />

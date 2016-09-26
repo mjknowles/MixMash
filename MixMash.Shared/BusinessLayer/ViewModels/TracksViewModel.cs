@@ -17,6 +17,7 @@ namespace MixMash.Shared.BL.ViewModels
     {
         private readonly IMapper _mapper;
         //private readonly SQLiteClient _db;
+        private SpotifyRequestParams _spotifyRequestParams;
 
         private IList<TrackViewModel> _tracks;
         public IList<TrackViewModel> Tracks
@@ -33,19 +34,23 @@ namespace MixMash.Shared.BL.ViewModels
 
         public void Init(TracksParameters trackParams)
         {
-            var spotifyParams = new SpotifyRequestParams()
+            _spotifyRequestParams = new SpotifyRequestParams()
             {
                 MinDanceability = trackParams.MinDanceability,
                 MaxDanceability = trackParams.MaxDanceability
             };
-
-            GetRecommendedTracks();
         }
 
-        public async Task GetRecommendedTracks()
+        public override async void Start()
+        {
+            base.Start();
+            Tracks = _mapper.Map<IList<TrackViewModel>>(await GetRecommendedTracks());
+        }
+
+        public async Task<List<Track>> GetRecommendedTracks()
         {
             //await GetLocalRecommendedTracks();
-            await GetRemoteRecommendedTracks();
+            return await GetRemoteRecommendedTracks();
             //await GetLocalRecommendedTracks();
         }
 
@@ -54,12 +59,10 @@ namespace MixMash.Shared.BL.ViewModels
             Tracks = await _db.GetRecommendedTracksAsync();
         }*/
 
-        private async Task GetRemoteRecommendedTracks()
+        private async Task<List<Track>> GetRemoteRecommendedTracks()
         {
             var remoteClient = new SpotifyClient(_mapper);
-            var tracks = await remoteClient.GetRecommendedTracks().ConfigureAwait(false);
-            Tracks = _mapper.Map<IList<TrackViewModel>>(tracks);
-            //await _db.SaveAll(tracks).ConfigureAwait(false);
+            return await remoteClient.GetRecommendedTracks(_spotifyRequestParams);
         }
     }
 }

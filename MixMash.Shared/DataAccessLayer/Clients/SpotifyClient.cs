@@ -10,6 +10,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Auth;
+using MixMash.Shared.BusinessLayer.ValueObjects;
+using MixMash.Shared.BL.ValueObjects;
 
 namespace MixMash.Shared.DAL.Clients
 {
@@ -44,45 +47,80 @@ namespace MixMash.Shared.DAL.Clients
             };
         }
 
-        public async Task<List<Track>> GetRecommendedTracks()
+        public async Task<List<Track>> GetRecommendedTracks(SpotifyRequestParams spotifyRequestParams)
         {
             IEnumerable<TrackDto> trackDtos = Enumerable.Empty<TrackDto>();
             IEnumerable<Track> tracks = Enumerable.Empty<Track>();
 
-            using (var httpClient = CreateClient())
-            {
-                var response = await httpClient.GetAsync("recommendations").ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    if (!string.IsNullOrWhiteSpace(json))
-                    {
-                        trackDtos = await Task.Run(() =>
-                           JsonConvert.DeserializeObject<IEnumerable<TrackDto>>(json)
-                        ).ConfigureAwait(false);
+            var bodyParam = new Dictionary<string, string>();
+            bodyParam.Add("seed_genres", "dance");
+            bodyParam.Add("max_danceability", spotifyRequestParams.MaxDanceability.ToString());
+            bodyParam.Add("min_danceability", spotifyRequestParams.MinDanceability.ToString());
 
-                        tracks = await Task.Run(() =>
-                            _mapper.Map<IEnumerable<Track>>(trackDtos)
-                        ).ConfigureAwait(false);
-                    }
+            var account = AccountStore.Create().FindAccountsForService("Spotify").FirstOrDefault();
+            var request = new OAuth2Request("GET", new Uri(ApiRecommendationsAddress), bodyParam, account);
+            //using (var httpClient = await CreateClient())
+            var response = await request.GetResponseAsync().ConfigureAwait(false);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var text = await response.GetResponseTextAsync().ConfigureAwait(false);
+                if (!string.IsNullOrWhiteSpace(text))
+                {
+                    trackDtos = await Task.Run(() =>
+                        JsonConvert.DeserializeObject<IEnumerable<TrackDto>>(text)
+                    ).ConfigureAwait(false);
+
+                    tracks = await Task.Run(() =>
+                        _mapper.Map<IEnumerable<Track>>(trackDtos)
+                    ).ConfigureAwait(false);
                 }
             }
 
             return tracks.ToList();
         }
 
-        private const string ApiBaseAddress = "http://api.spotify.com/v1/";
-        private HttpClient CreateClient()
+        private const string ApiRecommendationsAddress = "http://api.spotify.com/v1/recommendations";
+        private const string AccessTokenAddress = "https://accounts.spotify.com/api/token";
+        /*private async Task<HttpClient> CreateClient()
         {
-            var httpClient = new HttpClient
+            /*
+var request = new OAuth2Request ("GET", new Uri (Constants.UserInfoUrl), null, e.Account);
+var response = await request.GetResponseAsync ();
+if (response != null) {
+  string userJson = response.GetResponseText ();
+  App.User = JsonConvert.DeserializeObject<User> (userJson);
+  ...
+}
+*/
+            /*OAuth2Request request;
+            var account = AccountStore.Create().FindAccountsForService("Spotify").FirstOrDefault();
+            if (account != null)
             {
-                BaseAddress = new Uri(ApiBaseAddress)
-            };
+                //Dictionary<string, string> bodyParam = new Dictionary<string, string>();
+                //bodyParam.Add("grant_type", "authorization_code");
+                //bodyParam.Add("code", account.Properties[]);
+                //bodyParam.Add("redirect_uri", "authorization_code");
 
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                /*request = new OAuth2Request("GET", new Uri(AccessTokenAddress), null, account);
+                var response = await request.GetResponseAsync();
+                if (response != null)
+                {
+                    var r = response.GetResponseText();
+                    var accessToken = JsonConvert.DeserializeObject<SpotifyAccessToken>(response.GetResponseText());
+                    account.Properties.Add("AccessToken", accessToken.Properties["access_token"]);
+                }*/
+                /*var httpClient = new HttpClient
+                {
+                    BaseAddress = new Uri(ApiBaseAddress)
+                };
 
-            return httpClient;
-        }
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                return httpClient;
+            }
+            //TODO remove
+            return null;
+        }*/
     }
 }
