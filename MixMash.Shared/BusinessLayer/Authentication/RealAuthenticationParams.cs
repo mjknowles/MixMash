@@ -10,7 +10,7 @@ namespace MixMash.Shared.BL.Authentication
     {
         public RealAuthenticationParams()
         {
-            ClientId = "your_client_id_here";
+            ClientId = "e0c5aa96878744b987515001757dd60a";
             Scope = "";
             AuthorizeUrl = new Uri("https://accounts.spotify.com/authorize");
             AccessTokenUrl = new Uri("https://accounts.spotify.com/api/token");

@@ -18,7 +18,7 @@ namespace MixMash.Shared.BL.ViewModels
             _nextStepText = Constants.TuneableAttribsNextStepText;
             _tuneableAttribs = new List<TuneableAttrib_ListItem>()
             {
-                new TuneableAttrib_ListItem(TuneableAttrib.Danceability, Constants.TuneableAttribs[TuneableAttrib.Danceability], Constants.MinAttribValue, Constants.MaxAttribValue, Constants.InitialOverallAttribValue)
+                new TuneableAttrib_ListItem(TuneableAttrib.Tempo, Constants.TuneableAttribs[TuneableAttrib.Tempo], Constants.MinAttribValue, Constants.MaxAttribValue, Constants.InitialOverallAttribValue)
             };
         }
 
@@ -41,11 +41,11 @@ namespace MixMash.Shared.BL.ViewModels
         {
             get
             {
-                var danceability = TuneableAttribs.Where(a => a.TuneableAttribute == TuneableAttrib.Danceability).FirstOrDefault();
+                var tempo = TuneableAttribs.Where(a => a.TuneableAttribute == TuneableAttrib.Tempo).FirstOrDefault();
                 var tracksParams = new TracksParameters()
                 {
-                    MinDanceability = danceability != null ? danceability.MinValue : 0,
-                    MaxDanceability = danceability != null ? danceability.MaxValue : 0,
+                    MinTempo = tempo != null ? tempo.MinValue : 0,
+                    MaxTempo = tempo != null ? tempo.MaxValue : 0,
                 };
                 return new MvxCommand(() => ShowViewModel<TracksViewModel>(tracksParams));
             }

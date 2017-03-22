@@ -27,6 +27,6 @@ namespace MixMash.Shared.BL.Enums
 
     public enum TuneableAttrib
     {
-        Danceability
+        Tempo
     }
 }

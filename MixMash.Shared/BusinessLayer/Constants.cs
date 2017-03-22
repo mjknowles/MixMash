@@ -37,7 +37,7 @@ namespace MixMash.Shared.BL
 
         public static readonly Dictionary<TuneableAttrib, string> TuneableAttribs = new Dictionary<TuneableAttrib, string>
         {
-            { TuneableAttrib.Danceability, "DANCE" }
+            { TuneableAttrib.Tempo, "BPM" }
         };
     }
 }
