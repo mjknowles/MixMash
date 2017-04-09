@@ -24,10 +24,11 @@ namespace MixMash.Droid.Views
 
             var authParams = new RealAuthenticationParams();
             var account = AccountStore.Create(this).FindAccountsForService("Spotify").FirstOrDefault();
-            /*if (account != null)
+            if (account != null)
             {
                 AccountStore.Create().Delete(account, "Spotify");
-            }*/
+                account = null;
+            }
             if (account == null)
             {
                 var auth = new OAuth2Authenticator(
@@ -35,9 +36,9 @@ namespace MixMash.Droid.Views
                    authParams.Scope,
                    authParams.AuthorizeUrl,
                    authParams.RedirectUrl);
-
+                
                 auth.Completed += OnAuthenticationCompleted;
-                StartActivity(auth.GetUI(this));
+                StartActivity((Intent)auth.GetUI(this));
             }
 
             /*var postDictionary = new Dictionary<string, string>();

@@ -13,18 +13,13 @@ using System.Threading.Tasks;
 using Xamarin.Auth;
 using MixMash.Shared.BusinessLayer.ValueObjects;
 using MixMash.Shared.BL.ValueObjects;
+using System.IO;
+using MixMash.Shared.DataAccessLayer.DTOs;
 
 namespace MixMash.Shared.DAL.Clients
 {
-    public class SpotifyClient : ISpotifyClient
+    public class SpotifyService : ISpotifyService
     {
-        private IMapper _mapper;
-
-        public SpotifyClient(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
-
         public async Task<IList<string>> GetGenres()
         {
             return new List<string>
@@ -54,8 +49,8 @@ namespace MixMash.Shared.DAL.Clients
 
             var bodyParam = new Dictionary<string, string>();
             bodyParam.Add("seed_genres", "dance");
-            bodyParam.Add("max_danceability", spotifyRequestParams.MaxDanceability.ToString());
-            bodyParam.Add("min_danceability", spotifyRequestParams.MinDanceability.ToString());
+            bodyParam.Add("max_tempo", spotifyRequestParams.MaxTempo.ToString());
+            bodyParam.Add("min_tempo", spotifyRequestParams.MinTempo.ToString());
 
             var account = AccountStore.Create().FindAccountsForService("Spotify").FirstOrDefault();
             var request = new OAuth2Request("GET", new Uri(ApiRecommendationsAddress), bodyParam, account);
@@ -63,15 +58,24 @@ namespace MixMash.Shared.DAL.Clients
             var response = await request.GetResponseAsync().ConfigureAwait(false);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var text = await response.GetResponseTextAsync().ConfigureAwait(false);
+                var text = String.Empty;
+                using (var s = await response.GetResponseStreamAsync())
+                {
+                    using (var r = new StreamReader(s, Encoding.UTF8))
+                    {
+                        text = await r.ReadToEndAsync();
+                    }
+                }
+
+                //var text = await response.GetResponseTextAsync().ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     trackDtos = await Task.Run(() =>
-                        JsonConvert.DeserializeObject<IEnumerable<TrackDto>>(text)
+                        JsonConvert.DeserializeObject<RecommendationDto>(text).Tracks
                     ).ConfigureAwait(false);
 
                     tracks = await Task.Run(() =>
-                        _mapper.Map<IEnumerable<Track>>(trackDtos)
+                        Mapper.Map<IEnumerable<Track>>(trackDtos)
                     ).ConfigureAwait(false);
                 }
             }

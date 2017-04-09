@@ -11,9 +11,9 @@ namespace MixMash.Shared.BL.ViewModels
     public class GenreSelectorViewModel 
         : MvxViewModel
     {
-        private readonly ISpotifyClient _spotifyClient;
+        private readonly ISpotifyService _spotifyClient;
 
-        public GenreSelectorViewModel(ISpotifyClient spotifyClient)
+        public GenreSelectorViewModel(ISpotifyService spotifyClient)
         {
             _spotifyClient = spotifyClient;
             var genres = _spotifyClient.GetGenres().Result;

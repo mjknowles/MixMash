@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MixMash.Shared.BL.Contracts
 {
-    public interface ISpotifyClient
+    public interface ISpotifyService
     {
         Task<IList<string>> GetGenres();
     }

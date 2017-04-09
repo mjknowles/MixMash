@@ -7,9 +7,9 @@ namespace MixMash.Shared.BL
 {
     public class Bootstrapper
     {
-        public static IMapper AutoMapper()
+        public static void InitializeAutoMapper()
         {
-            var config = new MapperConfiguration(
+            Mapper.Initialize(
                 cfg => {
                     cfg.CreateMap<TrackDto, Track>()
                        .ForMember(
@@ -20,8 +20,6 @@ namespace MixMash.Shared.BL
                             dest => dest.Artist,
                             opts => opts.MapFrom(src => src.Artists[0]));
                 });
-
-            return config.CreateMapper();
         }
     }
 }
