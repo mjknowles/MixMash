@@ -44,8 +44,8 @@ namespace MixMash.Shared.DAL.Clients
 
         public async Task<List<Track>> GetRecommendedTracks(SpotifyRequestParams spotifyRequestParams)
         {
-            IEnumerable<TrackDto> trackDtos = Enumerable.Empty<TrackDto>();
-            IEnumerable<Track> tracks = Enumerable.Empty<Track>();
+            List<TrackDto> trackDtos = new List<TrackDto>();
+            List<Track> tracks = new List<Track>();
 
             var bodyParam = new Dictionary<string, string>();
             bodyParam.Add("seed_genres", "dance");
@@ -71,16 +71,16 @@ namespace MixMash.Shared.DAL.Clients
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     trackDtos = await Task.Run(() =>
-                        JsonConvert.DeserializeObject<RecommendationDto>(text).Tracks
+                        JsonConvert.DeserializeObject<RecommendationDto>(text).Tracks.ToList()
                     ).ConfigureAwait(false);
 
                     tracks = await Task.Run(() =>
-                        Mapper.Map<IEnumerable<Track>>(trackDtos)
+                        Mapper.Map<List<TrackDto>, List<Track>>(trackDtos)
                     ).ConfigureAwait(false);
                 }
             }
 
-            return tracks.ToList();
+            return tracks;
         }
 
         private const string ApiRecommendationsAddress = "http://api.spotify.com/v1/recommendations";

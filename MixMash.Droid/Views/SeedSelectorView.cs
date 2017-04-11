@@ -26,8 +26,17 @@ namespace MixMash.Droid.Views
             var account = AccountStore.Create(this).FindAccountsForService("Spotify").FirstOrDefault();
             if (account != null)
             {
-                AccountStore.Create().Delete(account, "Spotify");
-                account = null;
+                var created = DateTime.MinValue;
+                var expires_in = 0;
+                Int32.TryParse(account.Properties["expires_in"], out expires_in);
+
+                if (account.Properties.ContainsKey("create_datetime") &&
+                    DateTime.TryParse(account.Properties["create_datetime"], out created) && 
+                    DateTime.Now.ToUniversalTime().AddSeconds(-expires_in) >= created)
+                {
+                    AccountStore.Create().Delete(account, "Spotify");
+                    account = null;
+                }
             }
             if (account == null)
             {
@@ -77,6 +86,7 @@ namespace MixMash.Droid.Views
             if (eventArgs.IsAuthenticated)
             {
                 // Use eventArgs.Account to do wonderful things
+                eventArgs.Account.Properties["create_datetime"] = DateTime.Now.ToUniversalTime().ToString();
                 AccountStore.Create(this).Save(eventArgs.Account, "Spotify");
             }
             else

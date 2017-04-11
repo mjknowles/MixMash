@@ -29,8 +29,10 @@ namespace MixMash.Shared.BL.ViewModels
         {
             _spotifyRequestParams = new SpotifyRequestParams()
             {
-                MinDanceability = trackParams.MinDanceability,
-                MaxDanceability = trackParams.MaxDanceability
+                //MinTempo = trackParams.MinTempo,
+                //MaxTempo = trackParams.MaxTempo
+                MinTempo = 125,
+                MaxTempo = 130
             };
         }
 

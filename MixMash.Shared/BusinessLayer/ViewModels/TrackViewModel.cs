@@ -9,10 +9,8 @@ namespace MixMash.Shared.BL.ViewModels
 {
     public class TrackViewModel : MvxViewModel
     {
-        public TrackViewModel(string name, string artist)
+        public TrackViewModel()
         {
-            Name = name;
-            Artist = artist;
         }
 
         private string _artist;

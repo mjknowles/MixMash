@@ -25,7 +25,10 @@ namespace MixMash.Shared.BL.ViewModels
         public IList<Genre_ListItem> SeedGenres
         { 
             get { return _seedGenres; }
-            set { SetProperty (ref _seedGenres, value); }
+            set {
+                _seedGenres = value;
+                RaisePropertyChanged(() => SeedGenres);
+            }
         }
 
 
@@ -33,7 +36,10 @@ namespace MixMash.Shared.BL.ViewModels
         public string NextStepText
         {
             get { return _nextStepText; }
-            private set { SetProperty(ref _nextStepText, value); }
+            private set {
+                _nextStepText = value;
+                RaisePropertyChanged(() => NextStepText);
+            }
         }
 
         public ICommand NextStepCommand
@@ -56,14 +62,20 @@ namespace MixMash.Shared.BL.ViewModels
         public string Name
         {
             get { return _name; }
-            private set { SetProperty(ref _name, value); }
+            private set {
+                _name = value;
+                RaisePropertyChanged(() => Name);
+            }
         }
 
         private bool _selected;
         public bool Selected
         {
             get { return _selected; }
-            set { SetProperty(ref _selected, value); }
+            set {
+                _selected = value;
+                RaisePropertyChanged(() => Selected);
+            }
         }
 
         public ICommand ItemSelectedCommand

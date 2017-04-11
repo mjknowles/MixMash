@@ -18,7 +18,7 @@ namespace MixMash.Shared.BL.ViewModels
             _nextStepText = Constants.TuneableAttribsNextStepText;
             _tuneableAttribs = new List<TuneableAttrib_ListItem>()
             {
-                new TuneableAttrib_ListItem(TuneableAttrib.Tempo, Constants.TuneableAttribs[TuneableAttrib.Tempo], Constants.MinAttribValue, Constants.MaxAttribValue, Constants.InitialOverallAttribValue)
+                new TuneableAttrib_ListItem(TuneableAttrib.Tempo, Constants.TuneableAttribs[TuneableAttrib.Tempo], Constants.InitialOverallAttribValue)
             };
         }
 
@@ -26,14 +26,19 @@ namespace MixMash.Shared.BL.ViewModels
         public IList<TuneableAttrib_ListItem> TuneableAttribs
         {
             get { return _tuneableAttribs; }
-            private set { SetProperty(ref _tuneableAttribs, value); }
+            private set {
+                RaisePropertyChanged(() => TuneableAttribs);
+                _tuneableAttribs = value;
+            }
         }
 
         private string _nextStepText;
         public string NextStepText
         {
             get { return _nextStepText; }
-            private set { SetProperty(ref _nextStepText, value); }
+            private set {
+                RaisePropertyChanged(() => NextStepText);
+                _nextStepText = value; }
         }
 
         private ICommand _nextStepCommand;
@@ -54,24 +59,29 @@ namespace MixMash.Shared.BL.ViewModels
 
     public class TuneableAttrib_ListItem : MvxViewModel
     {
-        public TuneableAttrib_ListItem(TuneableAttrib tuneableAttrib, string label, float minValue, float maxValue, float overallValue)
+        public TuneableAttrib_ListItem(TuneableAttrib tuneableAttrib, string label, float overallValue)
         {
             Label = label;
-            MinValue = minValue;
-            MaxValue = maxValue;
             OverallValue = overallValue;
             TuneableAttribute = tuneableAttrib;
         }
 
+        public float _minValue;
         public float MinValue { get; private set; }
+
+        public float _maxValue;
         public float MaxValue { get; private set; }
+
         public TuneableAttrib TuneableAttribute { get; private set; }
 
         private string _label;
         public string Label
         {
             get { return _label; }
-            private set { SetProperty(ref _label, value); }
+            private set {
+                _label = value;
+                RaisePropertyChanged(() => Label);
+            }
         }
 
         private float _overallValue;
@@ -79,9 +89,12 @@ namespace MixMash.Shared.BL.ViewModels
         {
             get { return _overallValue; }
             set {
-                MinValue = value > Constants.OverallAttribValueFlex ? value - Constants.OverallAttribValueFlex : Constants.MinAttribValue;
-                MaxValue = value < Constants.MaxAttribValue - Constants.OverallAttribValueFlex ? value + Constants.OverallAttribValueFlex : Constants.MaxAttribValue;
-                SetProperty(ref _overallValue, value);
+                _minValue = value > Constants.OverallAttribValueFlex ? value - Constants.OverallAttribValueFlex : Constants.MinAttribValue;
+                RaisePropertyChanged(() => MinValue);
+                _maxValue = value < Constants.MaxAttribValue - Constants.OverallAttribValueFlex ? value + Constants.OverallAttribValueFlex : Constants.MaxAttribValue;
+                RaisePropertyChanged(() => MaxValue);
+                _overallValue = value;
+                RaisePropertyChanged(() => OverallValue);
             }
         }
     }
