@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    local:MvxBind="Click ItemSelectedCommand">
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        local:MvxBind="Checked Selected" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        local:MvxBind="Text Name" />
-</LinearLayout>
+    local:MvxBind="Text Name; BackgroundColor NativeColor(BackColor); Click ItemSelectedCommand" />

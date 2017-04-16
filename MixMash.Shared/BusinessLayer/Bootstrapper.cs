@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MixMash.Shared.BL.Entities;
+using MixMash.Shared.BL.ValueObjects;
 using MixMash.Shared.BL.ViewModels;
 using MixMash.Shared.DAL.DTOs;
 
@@ -21,6 +22,14 @@ namespace MixMash.Shared.BL
                         .ForMember(
                             dest => dest.Artist,
                             opts => opts.MapFrom(src => src.Artists[0].Name));
+                    cfg.CreateMap<string, SpotifyGenre>()
+                        .ForMember(
+                            dest => dest.SpotifyName,
+                            opts => opts.MapFrom(src => src))
+                        .ForMember(
+                            dest => dest.CommonName,
+                            opts => opts.MapFrom(src => src)
+                        );
                 });
         }
     }

@@ -20,9 +20,9 @@ namespace MixMash.Shared.DAL.Clients
 {
     public class SpotifyService : ISpotifyService
     {
-        public async Task<IList<string>> GetGenres()
+        public async Task<IList<SpotifyGenre>> GetGenres()
         {
-            return new List<string>
+            /*return new List<string>
             {
                 "alt_rock",
                 "bluegrass",
@@ -39,7 +39,34 @@ namespace MixMash.Shared.DAL.Clients
                 "salsa",
                 "techno",
                 "work-out"
-            };
+            };*/
+            var genres = new List<SpotifyGenre>();
+            var account = AccountStore.Create().FindAccountsForService("Spotify").FirstOrDefault();
+            var request = new OAuth2Request("GET", new Uri(ApiRecommendationsGenresAddress), null, account);
+            var response = await request.GetResponseAsync().ConfigureAwait(false);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var text = String.Empty;
+                using (var s = await response.GetResponseStreamAsync())
+                {
+                    using (var r = new StreamReader(s, Encoding.UTF8))
+                    {
+                        text = await r.ReadToEndAsync();
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(text))
+                {
+                    var genresDto = await Task.Run(() =>
+                        JsonConvert.DeserializeObject<GenresDto>(text)
+                    ).ConfigureAwait(false);
+
+                    genres = await Task.Run(() =>
+                        Mapper.Map<List<SpotifyGenre>>(genresDto.Genres)
+                    ).ConfigureAwait(false);
+                }
+            }
+
+            return genres;
         }
 
         public async Task<List<Track>> GetRecommendedTracks(SpotifyRequestParams spotifyRequestParams)
@@ -83,7 +110,8 @@ namespace MixMash.Shared.DAL.Clients
             return tracks;
         }
 
-        private const string ApiRecommendationsAddress = "http://api.spotify.com/v1/recommendations";
+        private const string ApiRecommendationsAddress = "https://api.spotify.com/v1/recommendations";
+        private const string ApiRecommendationsGenresAddress = "https://api.spotify.com/v1/recommendations/available-genre-seeds";
         private const string AccessTokenAddress = "https://accounts.spotify.com/api/token";
         /*private async Task<HttpClient> CreateClient()
         {

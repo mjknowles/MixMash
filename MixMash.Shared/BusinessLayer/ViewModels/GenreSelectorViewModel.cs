@@ -2,7 +2,9 @@ using MixMash.Shared.BL.Contracts;
 using MixMash.Shared.BL.Entities;
 using MixMash.Shared.BL.ViewModelParameters;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform.UI;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -17,12 +19,12 @@ namespace MixMash.Shared.BL.ViewModels
         {
             _spotifyClient = spotifyClient;
             var genres = _spotifyClient.GetGenres().Result;
-            SeedGenres = genres.Select(g => new Genre_ListItem(g)).ToList();
+            SeedGenres = new ObservableCollection<Genre_ListItem>(genres.Select(g => new Genre_ListItem(g.CommonName, g.SpotifyName, this)));
             NextStepText = Constants.GenreSelectorNextStepText;
         }
 
-        private IList<Genre_ListItem> _seedGenres;
-        public IList<Genre_ListItem> SeedGenres
+        private ObservableCollection<Genre_ListItem> _seedGenres;
+        public ObservableCollection<Genre_ListItem> SeedGenres
         { 
             get { return _seedGenres; }
             set {
@@ -30,7 +32,6 @@ namespace MixMash.Shared.BL.ViewModels
                 RaisePropertyChanged(() => SeedGenres);
             }
         }
-
 
         private string _nextStepText;
         public string NextStepText
@@ -42,20 +43,53 @@ namespace MixMash.Shared.BL.ViewModels
             }
         }
 
+        private ICommand _nextStepCommand;
         public ICommand NextStepCommand
         { 
             get
             {
-                return new MvxCommand(() => ShowViewModel<TuneableAttribsSelectorViewModel>());
+                _nextStepCommand = _nextStepCommand ?? new MvxCommand(NextStep);
+                return _nextStepCommand;
             }
+        }
+
+        private void NextStep()
+        {
+            var selectedGenres = string.Join(",", SeedGenres.Where(g => g.Selected).Select(g => g.NameValue));
+            ShowViewModel<TuneableAttribsSelectorViewModel>(selectedGenres);
+        }
+
+
+        internal void RefreshGenres()
+        {
+            SeedGenres = new ObservableCollection<Genre_ListItem>(SeedGenres);
         }
     }
 
-    public class Genre_ListItem : MvxViewModel
+    public class Genre_ListItem : MvxNotifyPropertyChanged
     {
-        public Genre_ListItem(string name)
+        public readonly string NameValue;
+        private readonly MvxColor _defaultBackground = MvxColors.Black;
+        private GenreSelectorViewModel _container;
+
+        public Genre_ListItem(string name, string nameValue, GenreSelectorViewModel container)
         {
-            Name = name;
+            _name = name;
+            NameValue = nameValue;
+            Selected = false;
+            _backColor = _defaultBackground;
+            _container = container;
+        }
+
+        private MvxColor _backColor;
+        public MvxColor BackColor
+        {
+            get { return _backColor; }
+            private set
+            {
+                _backColor = value;
+                RaisePropertyChanged(() => BackColor);
+            }
         }
 
         private string _name;
@@ -68,25 +102,22 @@ namespace MixMash.Shared.BL.ViewModels
             }
         }
 
-        private bool _selected;
-        public bool Selected
-        {
-            get { return _selected; }
-            set {
-                _selected = value;
-                RaisePropertyChanged(() => Selected);
-            }
-        }
-
+        private ICommand _itemSelectedCommand;
         public ICommand ItemSelectedCommand
         {
             get
             {
-                return new MvxCommand(() =>
-                {
-                    Selected = !Selected;
-                });
+                _itemSelectedCommand = _itemSelectedCommand ?? new MvxCommand(SelectItem);
+                return _itemSelectedCommand;
             }
+        }
+
+        public bool Selected { get; set; }
+        public void SelectItem()
+        {
+            Selected = !Selected;
+            BackColor = Selected ? MvxColors.DimGray : _defaultBackground;
+            _container.RefreshGenres();
         }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="DataAccessLayer\AsyncLock.cs" />
     <Compile Include="DataAccessLayer\Clients\SpotifyService.cs" />
     <Compile Include="DataAccessLayer\Clients\SQLiteClient.cs" />
+    <Compile Include="DataAccessLayer\DTOs\GenresDto.cs" />
     <Compile Include="DataAccessLayer\DTOs\RecommendationDto.cs" />
     <Compile Include="DataAccessLayer\DTOs\TrackDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

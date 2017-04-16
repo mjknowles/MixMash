@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MixMash.Shared.BL.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MixMash.Shared.BL.Contracts
 {
     public interface ISpotifyService
     {
-        Task<IList<string>> GetGenres();
+        Task<IList<SpotifyGenre>> GetGenres();
     }
 }

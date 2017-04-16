@@ -13,6 +13,8 @@ namespace MixMash.Shared.BL.ViewModels
 {
     public class TuneableAttribsSelectorViewModel : MvxViewModel
     {
+        private string _genres;
+
         public TuneableAttribsSelectorViewModel()
         {
             _nextStepText = Constants.TuneableAttribsNextStepText;
@@ -20,6 +22,11 @@ namespace MixMash.Shared.BL.ViewModels
             {
                 new TuneableAttrib_ListItem(TuneableAttrib.Tempo, Constants.TuneableAttribs[TuneableAttrib.Tempo], Constants.InitialOverallAttribValue)
             };
+        }
+
+        public void Init(string genres)
+        {
+            _genres = genres;
         }
 
         private IList<TuneableAttrib_ListItem> _tuneableAttribs;
