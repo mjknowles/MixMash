@@ -159,7 +159,10 @@ namespace MixMash.Droid
 			public const int TuneableAttrib_ListItem = 2130968584;
 			
 			// aapt resource value: 0x7f040009
-			public const int TuneableAttribsSelectorView = 2130968585;
+			public const int TuneableAttribsDetailView = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int TuneableAttribsSelectorView = 2130968586;
 			
 			static Layout()
 			{

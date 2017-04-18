@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MixMash.Shared.BusinessLayer.ViewModelParameters
 {
-    class GenresParameters
+    public class GenresParameters
     {
+        public string Genres { get; set; }
     }
 }

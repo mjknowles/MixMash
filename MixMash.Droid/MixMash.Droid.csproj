@@ -137,6 +137,7 @@
     <Compile Include="Views\GenreSelectorView.cs" />
     <Compile Include="Views\SeedSelectorView.cs" />
     <Compile Include="Views\TracksView.cs" />
+    <Compile Include="Views\TuneableAttribsDetailView.cs" />
     <Compile Include="Views\TuneableAttribsSelectorView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\SplashScreen.axml" />
     <AndroidResource Include="Resources\layout\FirstView.axml" />
+    <AndroidResource Include="Resources\layout\TuneableAttribsDetailView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

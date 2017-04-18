@@ -1,6 +1,7 @@
 using MixMash.Shared.BL.Contracts;
 using MixMash.Shared.BL.Entities;
 using MixMash.Shared.BL.ViewModelParameters;
+using MixMash.Shared.BusinessLayer.ViewModelParameters;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.UI;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace MixMash.Shared.BL.ViewModels
         private void NextStep()
         {
             var selectedGenres = string.Join(",", SeedGenres.Where(g => g.Selected).Select(g => g.NameValue));
-            ShowViewModel<TuneableAttribsSelectorViewModel>(selectedGenres);
+            ShowViewModel<TuneableAttribsSelectorViewModel>(new GenresParameters() { Genres = selectedGenres });
         }
 
 

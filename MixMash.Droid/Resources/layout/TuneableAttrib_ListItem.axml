@@ -3,12 +3,21 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    local:MvxBind="Click ItemSelectedCommand">
+  <TextView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    local:MvxBind="Text MinValue" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         local:MvxBind="Text Label" />
-    <LinearLayout
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      local:MvxBind="Text MaxValue" />
+  <!--<LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,5 +31,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             local:MvxBind="Text OverallValue, Converter=AttribValueNormalizer" />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

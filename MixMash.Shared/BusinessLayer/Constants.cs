@@ -15,6 +15,9 @@ namespace MixMash.Shared.BL
         public static readonly float MaxAttribValue = 1.0f;
         public static readonly float OverallAttribValueFlex = .5f;
         public static readonly float InitialOverallAttribValue = 0f;
+        public static readonly int InitialMinTempoAttribValue = 0;
+        public static readonly int InitialMaxTempoAttribValue = 125;
+
 
         public static readonly Dictionary<Genre, string> Genres = new Dictionary<Genre, string>
         {
