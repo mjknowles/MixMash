@@ -20,7 +20,7 @@ namespace MixMash.Shared.DAL.Clients
 {
     public class SpotifyService : ISpotifyService
     {
-        public async Task<IList<SpotifyGenre>> GetGenres()
+        public async Task<IList<SpotifyGenre>> GetGenresAsync()
         {
             /*return new List<string>
             {

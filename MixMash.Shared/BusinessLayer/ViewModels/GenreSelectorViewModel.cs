@@ -2,6 +2,7 @@ using MixMash.Shared.BL.Contracts;
 using MixMash.Shared.BL.Entities;
 using MixMash.Shared.BL.ViewModelParameters;
 using MixMash.Shared.BusinessLayer.ViewModelParameters;
+using MixMash.Shared.DL.Repositories;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.UI;
 using System.Collections.Generic;
@@ -14,14 +15,38 @@ namespace MixMash.Shared.BL.ViewModels
     public class GenreSelectorViewModel 
         : MvxViewModel
     {
-        private readonly ISpotifyService _spotifyClient;
+        private readonly IGenreRepository _genreRepository;
 
-        public GenreSelectorViewModel(ISpotifyService spotifyClient)
+        public GenreSelectorViewModel(IGenreRepository genreRepository)
         {
-            _spotifyClient = spotifyClient;
-            var genres = _spotifyClient.GetGenres().Result;
-            SeedGenres = new ObservableCollection<Genre_ListItem>(genres.Select(g => new Genre_ListItem(g.CommonName, g.SpotifyName, this)));
+            _genreRepository = genreRepository;
             NextStepText = Constants.GenreSelectorNextStepText;
+        }
+
+        public override async void Start()
+        {
+            var genres = await _genreRepository.GetCachedGenres();
+            SeedGenres = new ObservableCollection<Genre_ListItem>(genres.Select(g => new Genre_ListItem(g.DisplayName, g.Name, this)));
+
+            if (SeedGenres == null || SeedGenres.Count == 0)
+            { 
+                var latestGenres = await _genreRepository.GetSpotifyGenres();
+                foreach(var seed in SeedGenres)
+                {
+                    if(!latestGenres.Any(g => g.Name == seed.Name))
+                    {
+                        SeedGenres.Remove(seed);
+                    }
+                }
+                foreach(var latestGenre in latestGenres)
+                {
+                    if (!SeedGenres.Any(g => g.Name == latestGenre.Name))
+                    {
+                        SeedGenres.Add(new Genre_ListItem(latestGenre.DisplayName, latestGenre.Name, this));
+                    }
+                }
+            }
+            base.Start();
         }
 
         private ObservableCollection<Genre_ListItem> _seedGenres;

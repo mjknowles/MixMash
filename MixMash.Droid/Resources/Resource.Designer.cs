@@ -49,8 +49,6 @@ namespace MixMash.Droid
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::MixMash.Droid.Resource.Styleable.MvxListView_MvxItemTemplate;
 			global::PCLCrypto.Resource.String.ApplicationName = global::MixMash.Droid.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.Hello = global::MixMash.Droid.Resource.String.Hello;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::MixMash.Droid.Resource.String.ApplicationName;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::MixMash.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

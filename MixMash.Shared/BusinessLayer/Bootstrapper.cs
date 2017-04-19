@@ -30,6 +30,14 @@ namespace MixMash.Shared.BL
                             dest => dest.CommonName,
                             opts => opts.MapFrom(src => src)
                         );
+                    cfg.CreateMap<SpotifyGenre, Genre>()
+                        .ForMember(
+                            dest => dest.DisplayName,
+                            opts => opts.MapFrom(src => src.CommonName))
+                        .ForMember(
+                            dest => dest.Name,
+                            opts => opts.MapFrom(src => src.SpotifyName)
+                        );
                 });
         }
     }

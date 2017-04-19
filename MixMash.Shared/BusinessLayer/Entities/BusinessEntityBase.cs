@@ -1,5 +1,5 @@
 ﻿using MixMash.Shared.BL.Contracts;
-using SQLite.Net.Attributes;
+using SQLite;
 
 namespace MixMash.Shared.BL.Entities
 {

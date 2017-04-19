@@ -1,31 +1,27 @@
 using System;
 using MixMash.Shared.DL.Clients;
-using SQLite.Net.Async;
 using System.IO;
-using SQLite.Net.Platform.XamarinAndroid;
-using SQLite.Net;
-
+using SQLite;
 
 namespace MixMash.Droid.Data
 {
-    public class SQLiteClient : ISQLite
+    public class SqlLiteConnectionFactory : ISqlLiteConnectionFactory
     {
-        public SQLiteAsyncConnection GetConnection()
+        public SQLiteConnection GetConnection()
         {
-            var sqliteFilename = "Conferences.db3";
+            return new SQLiteConnection(GetPath());
+        }
+
+        public SQLiteAsyncConnection GetAsyncConnection()
+        {
+            return new SQLiteAsyncConnection(GetPath());
+        }
+
+        private string GetPath()
+        {
+            var sqliteFilename = "MixMash.db3";
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            var path = Path.Combine(documentsPath, sqliteFilename);
-
-            var platform = new SQLitePlatformAndroid();
-
-            var connectionWithLock = new SQLiteConnectionWithLock(
-                                         platform,
-                                         new SQLiteConnectionString(path, true));
-
-            var connection = new SQLiteAsyncConnection(() => connectionWithLock);
-
-            return connection;
+            return Path.Combine(documentsPath, sqliteFilename);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace MixMash.Shared.BL.Contracts
 {
     public interface ISpotifyService
     {
-        Task<IList<SpotifyGenre>> GetGenres();
+        Task<IList<SpotifyGenre>> GetGenresAsync();
     }
 }
